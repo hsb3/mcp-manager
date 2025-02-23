@@ -1,8 +1,6 @@
-<h1 align="center">MCP Manager for Claude Desktop</h1>
+# MCP Manager for Claude Desktop
 
-<p align="center">A desktop application to manage Model Context Protocol (MCP) servers for the Claude Desktop app on MacOS. Just follow the instructions and paste a few commands to give your Claude app instant superpowers.</p>
-
-![MCP Manager for Claude Desktop](https://assets.zue.ai/mcp-manager-hero.png)
+A desktop application to manage Model Context Protocol (MCP) servers for the Claude Desktop app on MacOS. Just follow the instructions and paste a few commands to give your Claude app instant superpowers.
 
 ## What is MCP?
 
@@ -57,46 +55,79 @@ The Model Context Protocol (MCP) enables Claude to access private data, APIs, an
 - **Code Quality**:
   - Biome 1.9.4
   - ESLint 9.15.0
-- **Package Manager**: Bun
+- **Package Manager**: npm
 
 ## Project Structure
 
 ```plaintext
-src/
-├── components/ # React components
-│ ├── server-configs/ # Server-specific configuration components
-│ └── ...
-├── assets/ # Static assets and fonts
-├── App.tsx # Main application component
-├── server-configs.ts # MCP server configurations
-└── utils.ts # Utility functions
-electron/
-├── main.ts # Electron main process
-└── tsconfig.json # TypeScript config for Electron
+.
+├── electron/ # Electron main process files
+│   ├── main.ts # Main process entry point, handles window creation and IPC
+│   ├── preload.ts # Preload script for secure renderer process communication
+│   └── tsconfig.json # TypeScript configuration for Electron
+├── public/ # Static public assets
+│   ├── app.png # Application icon
+│   ├── claude-logo.svg # Claude branding
+│   ├── logo_zue.svg # Additional branding
+│   ├── mcp-favicon.ico # Favicon for the application
+│   └── mcp-logo.svg # MCP branding
+├── src/ # Source code directory
+│   ├── assets/ # Application assets
+│   │   ├── tiempos-text-web-regular.woff2 # Typography assets
+│   │   └── tiempos-text-web-semibold.woff2
+│   ├── components/ # React components
+│   │   ├── applying-instructions.tsx # Instructions UI component
+│   │   ├── loading-instructions.tsx # Loading state component
+│   │   ├── mcp-server-card.tsx # Server card component
+│   │   ├── mcp-servers.tsx # Servers list component
+│   │   ├── terminal-command.tsx # Terminal command display
+│   │   └── server-configs/ # Server configuration components
+│   │       ├── env-config.tsx # Environment variables config
+│   │       ├── filesystem-config.tsx # Filesystem server config
+│   │       ├── obsidian-config.tsx # Obsidian server config
+│   │       ├── postgres-config.tsx # PostgreSQL server config
+│   │       ├── sentry-config.tsx # Sentry server config
+│   │       └── sqlite-config.tsx # SQLite server config
+│   ├── types/ # TypeScript type definitions
+│   │   └── electron.d.ts # Electron-specific types
+│   ├── App.tsx # Main application component
+│   ├── index.css # Global styles
+│   ├── main.tsx # Application entry point
+│   ├── server-configs.ts # MCP server configurations
+│   ├── utils.ts # Utility functions
+│   └── vite-env.d.ts # Vite environment types
+├── package.json # Project configuration and dependencies
+├── tsconfig.json # TypeScript configuration
+├── vite.config.ts # Vite build configuration
+├── tailwind.config.ts # Tailwind CSS configuration
+├── postcss.config.js # PostCSS configuration
+├── eslint.config.js # ESLint configuration
+├── biome.json # Biome configuration
+└── .eslintrc.json # Additional ESLint configuration
 ```
 
 ## Development
 
 1. Install dependencies:
    ```bash
-   bun install
+   npm install
    ```
 
 2. Start development:
    ```bash
-   bun electron:dev
+   npm run electron:dev
    ```
 
 3. Build for MacOS:
    ```bash
    rm -rf dist dist-electron # When rebuilding
-   bun electron:build # Creates .dmg installer
+   npm run electron:build # Creates .dmg installer
    ```
 
 4. Additional commands:
    ```bash
-   bun check # Run TypeScript checks and Biome formatting
-   bun lint # Run ESLint
+   npm run check # Run TypeScript checks and Biome formatting
+   npm run lint # Run ESLint
    ```
 
 ## Work to be done
@@ -104,34 +135,4 @@ electron/
 Add preset MCPs:
 - Fetch 
 - Time-related 
-- Sentry 
-
-Contributions to resolve these are welcome!
-
-## Contributing
-
-Contributions are extremely welcome! Please open a PR with new MCP servers or any other improvements to the codebase.
-
-## Disclaimer
-
-This project is not affiliated with Anthropic. All logos are trademarks of their respective owners.
-
-## License
-
-MIT
-
----
-<br/>
-<br/>
-<p align="center">
-<a href="https://zue.ai#gh-light-mode-only">
-  <img src="https://assets.zue.ai/logo_zue_purple.svg" alt="zue logo" width="200" height="auto" style="display: block; margin: 0 auto;" />
-</a>
-<a href="https://zue.ai#gh-dark-mode-only">
-  <img src="https://assets.zue.ai/logo_zue_yellow.svg" alt="zue logo" width="200" height="auto" style="display: block; margin: 0 auto;" />
-</a>
-</p>
-
-<p align="center">
-<a href="https://zue.ai/talk-to-us">Contact us</a> for custom AI automation solutions and product development.
-</p>
+- Sentry
